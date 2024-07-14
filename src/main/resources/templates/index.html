@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit User Info</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
 <h1>Home</h1>
+<div th:text="${name}"></div>
+
+<script>
+    var urlParams = new URLSearchParams(window.location.search);
+    var accessToken = urlParams.get('accessToken');
+    var refreshToken = urlParams.get('refreshToken');
+    console.log(accessToken)
+    console.log(refreshToken)
+    alert(accessToken);
+    localStorage.setItem('access_token', accessToken);
+    localStorage.setItem('refresh_token', refreshToken);
+
+    fetch('http://localhost:8080/users', {
+        headers: {
+            'Authorization': 'Bearer ' + accessToken
+        }
+    })
+        .then(response => response.json())
+        .then(data => console.log('API Response:', data))
+        .catch(error => console.error('API Error:', error));
+
+</script>
 </body>
 </html>
