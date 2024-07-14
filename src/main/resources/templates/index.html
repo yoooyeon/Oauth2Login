@@ -11,25 +11,5 @@
 <h1>Home</h1>
 <div th:text="${name}"></div>
 
-<script>
-    var urlParams = new URLSearchParams(window.location.search);
-    var accessToken = urlParams.get('accessToken');
-    var refreshToken = urlParams.get('refreshToken');
-    console.log(accessToken)
-    console.log(refreshToken)
-    alert(accessToken);
-    localStorage.setItem('access_token', accessToken);
-    localStorage.setItem('refresh_token', refreshToken);
-
-    fetch('http://localhost:8080/users', {
-        headers: {
-            'Authorization': 'Bearer ' + accessToken
-        }
-    })
-        .then(response => response.json())
-        .then(data => console.log('API Response:', data))
-        .catch(error => console.error('API Error:', error));
-
-</script>
 </body>
 </html>

@@ -35,16 +35,15 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers(antMatcher("/login")).permitAll()
-                                .requestMatchers((antMatcher("/users"))).permitAll()
-//                        .requestMatchers(antMatcher("/users")).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessions -> sessions.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2Login(configure ->
-                        configure.authorizationEndpoint(config -> config.authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository))
+                        configure.authorizationEndpoint(
+                                config -> config.authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository))
                                 .userInfoEndpoint(config -> config.userService(customOAuth2UserService))
                                 .loginPage("/login")
-//                                .defaultSuccessUrl("/users")
+                                .defaultSuccessUrl("/users")
                                 .successHandler(oAuth2AuthenticationSuccessHandler)
                                 .failureHandler(oAuth2AuthenticationFailureHandler)
                 );
